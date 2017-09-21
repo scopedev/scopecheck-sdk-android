@@ -1,10 +1,12 @@
 package com.scopemedia.scopescheck.client;
 
 import com.scopemedia.scopescheck.dto.request.AddMediaRequest;
+import com.scopemedia.scopescheck.dto.request.MatchingImageRequest;
 import com.scopemedia.scopescheck.dto.request.PredictionRequest;
 import com.scopemedia.scopescheck.dto.request.SimilarImageRequest;
 import com.scopemedia.scopescheck.dto.response.AddMediaResponse;
 import com.scopemedia.scopescheck.dto.response.GetMediaResponse;
+import com.scopemedia.scopescheck.dto.response.MatchingImageResponse;
 import com.scopemedia.scopescheck.dto.response.ModelResponse;
 import com.scopemedia.scopescheck.dto.response.PredictionResponse;
 import com.scopemedia.scopescheck.dto.response.SimilarImageResponse;
@@ -29,6 +31,9 @@ interface ScopeCheckService {
 
     @POST("search/v2/similar")
     Call<SimilarImageResponse> getSimilarImages(@Body SimilarImageRequest request);
+
+    @POST("search/v2/matching")
+    Call<MatchingImageResponse> getMatchingImages(@Body MatchingImageRequest request);
 
     @POST("tagging/v2/prediction")
     Call<PredictionResponse> getPrediction(@Body PredictionRequest request);

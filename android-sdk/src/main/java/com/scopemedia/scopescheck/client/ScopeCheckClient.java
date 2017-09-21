@@ -2,11 +2,13 @@ package com.scopemedia.scopescheck.client;
 
 import com.scopemedia.scopescheck.client.ScopeCheckClientImpl.RequestBuilder;
 import com.scopemedia.scopescheck.dto.request.AddMediaRequest;
+import com.scopemedia.scopescheck.dto.request.MatchingImageRequest;
 import com.scopemedia.scopescheck.dto.request.PredictionRequest;
 import com.scopemedia.scopescheck.dto.request.SimilarImageRequest;
 
 import com.scopemedia.scopescheck.dto.response.AddMediaResponse;
 import com.scopemedia.scopescheck.dto.response.GetMediaResponse;
+import com.scopemedia.scopescheck.dto.response.MatchingImageResponse;
 import com.scopemedia.scopescheck.dto.response.ModelResponse;
 import com.scopemedia.scopescheck.dto.response.PredictionResponse;
 import com.scopemedia.scopescheck.dto.response.SimilarImageResponse;
@@ -38,6 +40,13 @@ public interface ScopeCheckClient {
      * @return {@link SimilarImageResponse}
      */
     RequestBuilder<SimilarImageResponse> getSimilarImages(SimilarImageRequest request);
+
+    /**
+     * returns matching images based on an input image
+     * @param request {@link MatchingImageRequest}
+     * @return {@link SimilarImageResponse}
+     */
+    RequestBuilder<MatchingImageResponse> getMatchingImages(MatchingImageRequest request);
 
     /**
      * returns predictions based on an input image

@@ -2,10 +2,12 @@ package com.scopemedia.scopescheck.client;
 
 import com.scopemedia.scopescheck.dto.ScopeMissingArgumentException;
 import com.scopemedia.scopescheck.dto.request.AddMediaRequest;
+import com.scopemedia.scopescheck.dto.request.MatchingImageRequest;
 import com.scopemedia.scopescheck.dto.request.SimilarImageRequest;
 import com.scopemedia.scopescheck.dto.request.PredictionRequest;
 import com.scopemedia.scopescheck.dto.response.AddMediaResponse;
 import com.scopemedia.scopescheck.dto.response.GetMediaResponse;
+import com.scopemedia.scopescheck.dto.response.MatchingImageResponse;
 import com.scopemedia.scopescheck.dto.response.ModelResponse;
 import com.scopemedia.scopescheck.dto.response.ScopeResponse;
 import com.scopemedia.scopescheck.dto.response.SimilarImageResponse;
@@ -85,6 +87,12 @@ class ScopeCheckClientImpl implements ScopeCheckClient {
     public RequestBuilder<SimilarImageResponse> getSimilarImages(SimilarImageRequest request) {
         if (!request.checkAllRequired()) throw new ScopeMissingArgumentException("Please set a mediaId or mediaUrl or base64");
         return new RequestBuilder<>(service.getSimilarImages(request));
+    }
+
+    @Override
+    public RequestBuilder<MatchingImageResponse> getMatchingImages(MatchingImageRequest request) {
+        if (!request.checkAllRequired()) throw new ScopeMissingArgumentException("Please set a mediaId or mediaUrl or base64");
+        return new RequestBuilder<>(service.getMatchingImages(request));
     }
 
     @Override
