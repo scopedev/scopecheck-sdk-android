@@ -3,25 +3,30 @@ package com.scopemedia.scopescheck.dto.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author Maikel Rehl on 6/12/2017.
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Area implements Parcelable {
 
     @JsonProperty("x")
-    private int startX;
+    protected int startX;
 
     @JsonProperty("y")
-    private int startY;
+    protected int startY;
 
     @JsonProperty("w")
-    private int width;
+    protected int width;
 
     @JsonProperty("h")
-    private int height;
+    protected int height;
+
+    public Area() {
+    }
 
     /**
      * Set an area of an image
@@ -34,6 +39,22 @@ public class Area implements Parcelable {
         this.startX = startX;
         this.startY = startY;
         this.width = width;
+        this.height = height;
+    }
+
+    public void setStartX(int startX) {
+        this.startX = startX;
+    }
+
+    public void setStartY(int startY) {
+        this.startY = startY;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
         this.height = height;
     }
 
@@ -66,7 +87,7 @@ public class Area implements Parcelable {
         dest.writeInt(this.height);
     }
 
-    public Area(Parcel in) {
+    protected Area(Parcel in) {
         this.startX = in.readInt();
         this.startY = in.readInt();
         this.width = in.readInt();
@@ -75,13 +96,13 @@ public class Area implements Parcelable {
 
     public static final Creator<Area> CREATOR = new Creator<Area>() {
         @Override
-        public Area[] newArray(int size) {
-            return new Area[size];
+        public Area createFromParcel(Parcel source) {
+            return new Area(source);
         }
 
         @Override
-        public Area createFromParcel(Parcel source) {
-            return new Area(source);
+        public Area[] newArray(int size) {
+            return new Area[size];
         }
     };
 }

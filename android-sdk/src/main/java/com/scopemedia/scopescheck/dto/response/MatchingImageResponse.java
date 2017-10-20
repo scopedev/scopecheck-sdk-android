@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.scopemedia.scopescheck.dto.model.MatchingArea;
 import com.scopemedia.scopescheck.dto.model.Media;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -12,6 +13,9 @@ public class MatchingImageResponse extends ScopeResponse implements Parcelable {
 
     @JsonProperty("medias")
     private Media[] medias;
+
+    @JsonProperty("matchingArea")
+    private MatchingArea matchingArea;
 
     public MatchingImageResponse() {
         super();
@@ -25,6 +29,14 @@ public class MatchingImageResponse extends ScopeResponse implements Parcelable {
         return medias;
     }
 
+    public MatchingArea getMatchingArea() {
+        return matchingArea;
+    }
+
+    public void setMatchingArea(MatchingArea matchingArea) {
+        this.matchingArea = matchingArea;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -33,23 +45,25 @@ public class MatchingImageResponse extends ScopeResponse implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
-        dest.writeParcelableArray(medias, PARCELABLE_WRITE_RETURN_VALUE);
+        dest.writeTypedArray(this.medias, flags);
+        dest.writeParcelable(this.matchingArea, flags);
     }
 
-    private MatchingImageResponse(Parcel in) {
+    protected MatchingImageResponse(Parcel in) {
         super(in);
-        medias = (Media[]) in.readParcelableArray(Media.class.getClassLoader());
+        this.medias = in.createTypedArray(Media.CREATOR);
+        this.matchingArea = in.readParcelable(MatchingArea.class.getClassLoader());
     }
 
     public static final Creator<MatchingImageResponse> CREATOR = new Creator<MatchingImageResponse>() {
         @Override
-        public MatchingImageResponse[] newArray(int size) {
-            return new MatchingImageResponse[size];
+        public MatchingImageResponse createFromParcel(Parcel source) {
+            return new MatchingImageResponse(source);
         }
 
         @Override
-        public MatchingImageResponse createFromParcel(Parcel source) {
-            return new MatchingImageResponse(source);
+        public MatchingImageResponse[] newArray(int size) {
+            return new MatchingImageResponse[size];
         }
     };
 }
