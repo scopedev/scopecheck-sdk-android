@@ -14,6 +14,7 @@ import com.scopemedia.scopescheck.dto.response.SimilarImageResponse;
 import com.scopemedia.scopescheck.dto.response.PredictionResponse;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -42,6 +43,52 @@ class ScopeCheckClientImpl implements ScopeCheckClient {
         final String clientSecret = builder.getClientSecret();
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.addInterceptor(new Interceptor() {
+            @Override
+            public okhttp3.Response intercept(Chain chain) throws IOException {
+                Request original = chain.request();
+
+                // Request customization: add request headers
+                Request.Builder requestBuilder = original.newBuilder()
+                        .addHeader("Client-Id", clientId)
+                        .addHeader("Client-Secret", clientSecret);
+
+                Request request = requestBuilder.build();
+                return chain.proceed(request);
+            }
+        });
+
+        if (builder.getDebugMode()) {
+            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+            loggingInterceptor.setLevel(builder.getDebugLevel());
+            httpClient.addInterceptor(loggingInterceptor);
+        }
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(builder.getBaseUrl())
+                .client(httpClient.build())
+                .addConverterFactory(JacksonConverterFactory.create())
+                .build();
+
+        this.service = retrofit.create(ScopeCheckService.class);
+    }
+
+    /**
+     *  Use by {@link ScopeCheckBuilder} to initialise a new {@link ScopeCheckClient}
+     * @param builder {@link ScopeCheckBuilder}
+     * @param timeout in second
+     */
+    protected ScopeCheckClientImpl(ScopeCheckBuilder builder, long timeout) {
+
+        final String clientId = builder.getClientId();
+        final String clientSecret = builder.getClientSecret();
+
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        if (timeout > 0) {
+            httpClient.connectTimeout(timeout, TimeUnit.SECONDS);
+            httpClient.readTimeout(timeout, TimeUnit.SECONDS);
+            httpClient.writeTimeout(timeout, TimeUnit.SECONDS);
+        }
         httpClient.addInterceptor(new Interceptor() {
             @Override
             public okhttp3.Response intercept(Chain chain) throws IOException {

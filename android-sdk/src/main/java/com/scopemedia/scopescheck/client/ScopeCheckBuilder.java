@@ -66,6 +66,15 @@ public class ScopeCheckBuilder {
     }
 
     /**
+     * Build the client
+     * @return {@link ScopeCheckClient}
+     * @param timeout in second
+     */
+    public ScopeCheckClient build(long timeout) {
+        return new ScopeCheckClientImpl(this, timeout);
+    }
+
+    /**
      * @return returns the API Base URL
      */
     protected String getBaseUrl() {

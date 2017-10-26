@@ -13,6 +13,7 @@ public class MatchingArea extends Area implements Parcelable {
     protected String tag;
 
     public MatchingArea() {
+        super();
     }
 
     /**
