@@ -10,6 +10,7 @@ public class ScopeCheckBuilder {
     private String appId;
     private String clientId;
     private String clientSecret;
+    private String clientNode;
     private boolean debugMode = false;
     private HttpLoggingInterceptor.Level debugLevel = HttpLoggingInterceptor.Level.BASIC;
 
@@ -35,6 +36,20 @@ public class ScopeCheckBuilder {
         this.appId = appId;
         this.clientId = clientId;
         this.clientSecret = clientSecret;
+    }
+
+    /**
+     * Create a new ScopeCheckBuilder object
+     * @param clientId set your ClientID
+     * @param clientSecret set your ClientSecret
+     * @param clientNode set your ClientNode
+     * @param appId set your AppID
+     */
+    public ScopeCheckBuilder(String clientId, String clientSecret, String clientNode, String appId) {
+        this.appId = appId;
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
+        this.clientNode = clientNode;
     }
 
     /**
@@ -100,6 +115,13 @@ public class ScopeCheckBuilder {
      */
     public String getClientSecret() {
         return clientSecret;
+    }
+
+    /**
+     * @return returns the ClientNode
+     */
+    public String getClientNode() {
+        return clientNode;
     }
 
     /**

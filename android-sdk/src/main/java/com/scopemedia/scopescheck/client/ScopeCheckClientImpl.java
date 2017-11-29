@@ -41,6 +41,7 @@ class ScopeCheckClientImpl implements ScopeCheckClient {
 
         final String clientId = builder.getClientId();
         final String clientSecret = builder.getClientSecret();
+        final String clientNode = builder.getClientNode();
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.addInterceptor(new Interceptor() {
@@ -51,7 +52,8 @@ class ScopeCheckClientImpl implements ScopeCheckClient {
                 // Request customization: add request headers
                 Request.Builder requestBuilder = original.newBuilder()
                         .addHeader("Client-Id", clientId)
-                        .addHeader("Client-Secret", clientSecret);
+                        .addHeader("Client-Secret", clientSecret)
+                        .addHeader("Client-Node", clientNode);
 
                 Request request = requestBuilder.build();
                 return chain.proceed(request);
@@ -82,6 +84,7 @@ class ScopeCheckClientImpl implements ScopeCheckClient {
 
         final String clientId = builder.getClientId();
         final String clientSecret = builder.getClientSecret();
+        final String clientNode = builder.getClientNode();
 
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         if (timeout > 0) {
@@ -97,7 +100,8 @@ class ScopeCheckClientImpl implements ScopeCheckClient {
                 // Request customization: add request headers
                 Request.Builder requestBuilder = original.newBuilder()
                         .addHeader("Client-Id", clientId)
-                        .addHeader("Client-Secret", clientSecret);
+                        .addHeader("Client-Secret", clientSecret)
+                        .addHeader("Client-Node", clientNode);
 
                 Request request = requestBuilder.build();
                 return chain.proceed(request);
