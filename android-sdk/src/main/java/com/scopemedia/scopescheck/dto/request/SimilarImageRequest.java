@@ -31,6 +31,9 @@ public class SimilarImageRequest extends ScopeRequest implements Parcelable {
     @JsonProperty("area")
     private Area area;
 
+    @JsonProperty("gender")
+    private String gender;
+
     public SimilarImageRequest() {
     }
 
@@ -93,6 +96,16 @@ public class SimilarImageRequest extends ScopeRequest implements Parcelable {
         return this;
     }
 
+    /**
+     * Set gender filter for similar images
+     * @param gender Must be either "M" for male or "F" for female
+     * @return SimilarImageRequest
+     */
+    public SimilarImageRequest setGender(String gender) {
+        this.gender = gender;
+        return this;
+    }
+
     @Override
     public boolean checkAllRequired() {
         return mediaId != 0.0 || mediaUrl != null || base64 != null;
@@ -111,6 +124,7 @@ public class SimilarImageRequest extends ScopeRequest implements Parcelable {
         dest.writeString(mediaUrl);
         dest.writeString(base64);
         dest.writeParcelable(area, PARCELABLE_WRITE_RETURN_VALUE);
+        dest.writeString(gender);
     }
 
     private SimilarImageRequest(Parcel in) {
@@ -120,6 +134,7 @@ public class SimilarImageRequest extends ScopeRequest implements Parcelable {
         this.mediaUrl = in.readString();
         this.base64 = in.readString();
         this.area = in.readParcelable(Area.class.getClassLoader());
+        this.gender = in.readString();
     }
 
     public static final Creator<SimilarImageRequest> CREATOR = new Creator<SimilarImageRequest>() {

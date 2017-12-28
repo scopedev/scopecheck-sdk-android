@@ -27,13 +27,16 @@ public class MatchingImageRequest extends ScopeRequest implements Parcelable {
     @JsonProperty("area")
     private Area area;
 
+    @JsonProperty("gender")
+    private String gender;
+
     public MatchingImageRequest() {
     }
 
     /**
      * Media as ID, Bitmap, Base64 or as URL is required
      * @param id Media ID
-     * @return PredictionRequest
+     * @return MatchingImageRequest
      */
     public MatchingImageRequest setMediaId(long id) {
         this.mediaId = id;
@@ -43,7 +46,7 @@ public class MatchingImageRequest extends ScopeRequest implements Parcelable {
     /**
      * Media as ID, Bitmap, Base64 or as URL is required
      * @param bitmap encoded media
-     * @return SimilarImageRequest
+     * @return MatchingImageRequest
      */
     public MatchingImageRequest setMediaAsBitmap(Bitmap bitmap) {
         this.base64 = Utils.bitmap2base64(bitmap);
@@ -53,7 +56,7 @@ public class MatchingImageRequest extends ScopeRequest implements Parcelable {
     /**
      * Media as ID, Bitmap, Base64 or as URL is required
      * @param base64 encoded media
-     * @return SimilarImageRequest
+     * @return MatchingImageRequest
      */
     public MatchingImageRequest setMediaAsBase64(String base64) {
         this.base64 = base64;
@@ -63,7 +66,7 @@ public class MatchingImageRequest extends ScopeRequest implements Parcelable {
     /**
      * Media as ID, Bitmap, Base64 or as URL is required
      * @param url media URL
-     * @return SimilarImageRequest
+     * @return MatchingImageRequest
      */
     public MatchingImageRequest setMediaAsUrl(String url) {
         this.mediaUrl = url;
@@ -71,8 +74,8 @@ public class MatchingImageRequest extends ScopeRequest implements Parcelable {
     }
 
     /**
-     * @param appId app ID use for similar images.
-     * @return SimilarImageRequest
+     * @param appId app ID use for matching images.
+     * @return MatchingImageRequest
      */
     public MatchingImageRequest setAppId(String appId) {
         this.appId = appId;
@@ -80,12 +83,22 @@ public class MatchingImageRequest extends ScopeRequest implements Parcelable {
     }
 
     /**
-     * Set an area which will be used for the similar images
-     * @param area Area will be used for the similar images. See {@link Area}
-     * @return SimilarImageRequest
+     * Set an area which will be used for the matching images
+     * @param area Area will be used for the matching images. See {@link Area}
+     * @return MatchingImageRequest
      */
     public MatchingImageRequest setArea(Area area) {
         this.area = area;
+        return this;
+    }
+
+    /**
+     * Set gender filter for matching images
+     * @param gender Must be either "M" for male or "F" for female
+     * @return MatchingImageRequest
+     */
+    public MatchingImageRequest setGender(String gender) {
+        this.gender = gender;
         return this;
     }
 
@@ -107,6 +120,7 @@ public class MatchingImageRequest extends ScopeRequest implements Parcelable {
         dest.writeString(mediaUrl);
         dest.writeString(base64);
         dest.writeParcelable(area, PARCELABLE_WRITE_RETURN_VALUE);
+        dest.writeString(gender);
     }
 
     private MatchingImageRequest(Parcel in) {
@@ -116,6 +130,7 @@ public class MatchingImageRequest extends ScopeRequest implements Parcelable {
         this.mediaUrl = in.readString();
         this.base64 = in.readString();
         this.area = in.readParcelable(Area.class.getClassLoader());
+        this.gender = in.readString();
     }
 
     public static final Creator<MatchingImageRequest> CREATOR = new Creator<MatchingImageRequest>() {
