@@ -3,12 +3,14 @@ package com.scopemedia.scopescheck.dto.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * @author Maikel Rehl on 6/12/2017.
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Media implements Parcelable {
 
     @JsonProperty("mediaId")
@@ -16,6 +18,9 @@ public class Media implements Parcelable {
 
     @JsonProperty("mediaUrl")
     private String url;
+
+    @JsonProperty("mediaThumbnail")
+    private String thumbnail;
 
     public Media() {
     }
@@ -27,6 +32,11 @@ public class Media implements Parcelable {
 
     public Media setUrl(String url) {
         this.url = url;
+        return this;
+    }
+
+    public Media setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
         return this;
     }
 
@@ -46,6 +56,14 @@ public class Media implements Parcelable {
         return url;
     }
 
+    /**
+     *
+     * @return media thumbnail
+     */
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -55,11 +73,13 @@ public class Media implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(this.id);
         dest.writeString(this.url);
+        dest.writeString(this.thumbnail);
     }
 
     public Media(Parcel in) {
         this.id = in.readLong();
         this.url = in.readString();
+        this.thumbnail = in.readString();
     }
 
     public static final Creator<Media> CREATOR = new Creator<Media>() {
