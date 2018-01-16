@@ -11,9 +11,12 @@ import com.scopemedia.scopescheck.dto.response.ModelResponse;
 import com.scopemedia.scopescheck.dto.response.PredictionResponse;
 import com.scopemedia.scopescheck.dto.response.SimilarImageResponse;
 
+import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.HeaderMap;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -32,8 +35,26 @@ interface ScopeCheckService {
     @POST("search/v2/similar")
     Call<SimilarImageResponse> getSimilarImages(@Body SimilarImageRequest request);
 
+    /**
+     *  Get similar images with dynamic headers
+     * @param headers   gender, age, height
+     * @param request
+     * @return
+     */
+    @POST("search/v2/similar")
+    Call<SimilarImageResponse> getSimilarImages(@HeaderMap Map<String, String> headers, @Body SimilarImageRequest request);
+
     @POST("search/v2/matching")
     Call<MatchingImageResponse> getMatchingImages(@Body MatchingImageRequest request);
+
+    /**
+     *  Get matching images with dynamic headers
+     * @param headers   gender, age, height
+     * @param request
+     * @return
+     */
+    @POST("search/v2/matching")
+    Call<MatchingImageResponse> getMatchingImages(@HeaderMap Map<String, String> headers, @Body MatchingImageRequest request);
 
     @POST("tagging/v2/prediction")
     Call<PredictionResponse> getPrediction(@Body PredictionRequest request);

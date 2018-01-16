@@ -13,6 +13,8 @@ import com.scopemedia.scopescheck.dto.response.ModelResponse;
 import com.scopemedia.scopescheck.dto.response.PredictionResponse;
 import com.scopemedia.scopescheck.dto.response.SimilarImageResponse;
 
+import java.util.Map;
+
 /**
  * Created by maikel on 2017-03-27.
  */
@@ -42,11 +44,25 @@ public interface ScopeCheckClient {
     RequestBuilder<SimilarImageResponse> getSimilarImages(SimilarImageRequest request);
 
     /**
+     * returns similar images based on an input image
+     * @param request {@link Map<String, String>, @link SimilarImageRequest}
+     * @return {@link SimilarImageResponse}
+     */
+    RequestBuilder<SimilarImageResponse> getSimilarImages(Map<String, String> headers, SimilarImageRequest request);
+
+    /**
      * returns matching images based on an input image
      * @param request {@link MatchingImageRequest}
      * @return {@link SimilarImageResponse}
      */
     RequestBuilder<MatchingImageResponse> getMatchingImages(MatchingImageRequest request);
+
+    /**
+     * returns matching images based on an input image
+     * @param request {@link Map<String, String>, @link MatchingImageRequest}
+     * @return {@link SimilarImageResponse}
+     */
+    RequestBuilder<MatchingImageResponse> getMatchingImages(Map<String, String> headers, MatchingImageRequest request);
 
     /**
      * returns predictions based on an input image

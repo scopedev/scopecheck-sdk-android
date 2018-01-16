@@ -1,6 +1,7 @@
 package com.scopemedia.scopescheck.client;
 
 import com.scopemedia.scopescheck.dto.ScopeMissingArgumentException;
+import com.scopemedia.scopescheck.dto.model.Header;
 import com.scopemedia.scopescheck.dto.request.AddMediaRequest;
 import com.scopemedia.scopescheck.dto.request.MatchingImageRequest;
 import com.scopemedia.scopescheck.dto.request.SimilarImageRequest;
@@ -14,6 +15,7 @@ import com.scopemedia.scopescheck.dto.response.SimilarImageResponse;
 import com.scopemedia.scopescheck.dto.response.PredictionResponse;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
@@ -99,9 +101,9 @@ class ScopeCheckClientImpl implements ScopeCheckClient {
 
                 // Request customization: add request headers
                 Request.Builder requestBuilder = original.newBuilder()
-                        .addHeader("Client-Id", clientId)
-                        .addHeader("Client-Secret", clientSecret)
-                        .addHeader("Client-Node", clientNode);
+                        .addHeader(Header.CLIENT_ID, clientId)
+                        .addHeader(Header.CLIENT_SECRET, clientSecret)
+                        .addHeader(Header.CLIENT_NODE, clientNode);
 
                 Request request = requestBuilder.build();
                 return chain.proceed(request);
@@ -141,9 +143,21 @@ class ScopeCheckClientImpl implements ScopeCheckClient {
     }
 
     @Override
+    public RequestBuilder<SimilarImageResponse> getSimilarImages(Map<String, String> headers, SimilarImageRequest request) {
+        if (!request.checkAllRequired()) throw new ScopeMissingArgumentException("Please set a mediaId or mediaUrl or base64");
+        return new RequestBuilder<>(service.getSimilarImages(headers, request));
+    }
+
+    @Override
     public RequestBuilder<MatchingImageResponse> getMatchingImages(MatchingImageRequest request) {
         if (!request.checkAllRequired()) throw new ScopeMissingArgumentException("Please set a mediaId or mediaUrl or base64");
         return new RequestBuilder<>(service.getMatchingImages(request));
+    }
+
+    @Override
+    public RequestBuilder<MatchingImageResponse> getMatchingImages(Map<String, String> headers, MatchingImageRequest request) {
+        if (!request.checkAllRequired()) throw new ScopeMissingArgumentException("Please set a mediaId or mediaUrl or base64");
+        return new RequestBuilder<>(service.getMatchingImages(headers, request));
     }
 
     @Override
