@@ -37,5 +37,6 @@ subprojects {
 
         okHttp = "3.8.0"
         retrofit = "2.3.0"
+        gson = "2.8.1"
     }
 }

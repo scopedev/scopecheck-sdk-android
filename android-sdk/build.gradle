@@ -40,6 +40,7 @@ dependencies {
     compile "com.squareup.okhttp3:logging-interceptor:$okHttp"
     compile "com.squareup.retrofit2:retrofit:$retrofit"
     compile "com.squareup.retrofit2:converter-jackson:$retrofit"
+    compile "com.google.code.gson:gson:$gson"
 
     testCompile 'junit:junit:4.12'
 }

@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * @author Maikel Rehl on 6/12/2017.
@@ -14,13 +15,20 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Media implements Parcelable {
 
     @JsonProperty("mediaId")
+    @SerializedName("mediaId")
     private long id;
 
     @JsonProperty("mediaUrl")
+    @SerializedName("mediaUrl")
     private String url;
 
     @JsonProperty("mediaThumbnail")
+    @SerializedName("mediaThumbnail")
     private String thumbnail;
+
+    @JsonProperty("metadata")
+    @SerializedName("metadata")
+    private Metadata metadata;
 
     public Media() {
     }
@@ -64,6 +72,14 @@ public class Media implements Parcelable {
         return thumbnail;
     }
 
+    public Metadata getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(Metadata metadata) {
+        this.metadata = metadata;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -74,23 +90,25 @@ public class Media implements Parcelable {
         dest.writeLong(this.id);
         dest.writeString(this.url);
         dest.writeString(this.thumbnail);
+        dest.writeParcelable(this.metadata, flags);
     }
 
-    public Media(Parcel in) {
+    protected Media(Parcel in) {
         this.id = in.readLong();
         this.url = in.readString();
         this.thumbnail = in.readString();
+        this.metadata = in.readParcelable(Metadata.class.getClassLoader());
     }
 
     public static final Creator<Media> CREATOR = new Creator<Media>() {
         @Override
-        public Media[] newArray(int size) {
-            return new Media[size];
+        public Media createFromParcel(Parcel source) {
+            return new Media(source);
         }
 
         @Override
-        public Media createFromParcel(Parcel source) {
-            return new Media(source);
+        public Media[] newArray(int size) {
+            return new Media[size];
         }
     };
 }
