@@ -15,7 +15,7 @@ public class ScopeCheckBuilder {
     private HttpLoggingInterceptor.Level debugLevel = HttpLoggingInterceptor.Level.BASIC;
 
     public static final String DEFAULT_APP_ID = "fashion";
-    private static final String baseUrl = "https://api.scopemedia.com/";
+    private String baseUrl = "https://api.scopemedia.com/";
 
     /**
      * Create a new {@link ScopeCheckBuilder} object with the DEFAULT_APP_ID = 'fashion'
@@ -50,6 +50,22 @@ public class ScopeCheckBuilder {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.clientNode = clientNode;
+    }
+
+    /**
+     * Create a new ScopeCheckBuilder object
+     * @param clientId set your ClientID
+     * @param clientSecret set your ClientSecret
+     * @param clientNode set your ClientNode
+     * @param appId set your AppID
+     * @param baseUrl set API Base URL
+     */
+    public ScopeCheckBuilder(String clientId, String clientSecret, String clientNode, String appId, String baseUrl) {
+        this.appId = appId;
+        this.clientId = clientId;
+        this.clientSecret = clientSecret;
+        this.clientNode = clientNode;
+        this.baseUrl = baseUrl;
     }
 
     /**
