@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 import com.scopemedia.scopescheck.dto.model.Tag;
 
 /**
@@ -15,6 +16,7 @@ import com.scopemedia.scopescheck.dto.model.Tag;
 public class PredictionResponse extends ScopeResponse implements Parcelable {
 
     @JsonProperty("tags")
+    @SerializedName("tags")
     private Tag[] tags;
 
     public PredictionResponse() {

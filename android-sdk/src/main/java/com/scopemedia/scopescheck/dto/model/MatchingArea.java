@@ -5,11 +5,13 @@ import android.os.Parcelable;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MatchingArea extends Area implements Parcelable {
 
     @JsonProperty("tag")
+    @SerializedName("tag")
     protected String tag;
 
     public MatchingArea() {

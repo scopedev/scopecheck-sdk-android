@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 import com.scopemedia.scopescheck.dto.model.Media;
 
 /**
@@ -15,6 +16,7 @@ import com.scopemedia.scopescheck.dto.model.Media;
 public class SimilarImageResponse extends ScopeResponse implements Parcelable {
 
     @JsonProperty("medias")
+    @SerializedName("medias")
     private Media[] medias;
 
     public SimilarImageResponse() {

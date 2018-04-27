@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 import com.scopemedia.scopescheck.dto.model.Media;
 import com.scopemedia.scopescheck.dto.request.ScopeRequest;
 
@@ -19,6 +20,7 @@ import com.scopemedia.scopescheck.dto.request.ScopeRequest;
 public class GetMediaResponse extends ScopeResponse implements Parcelable {
 
     @JsonProperty("medias")
+    @SerializedName("medias")
     private Media[] medias;
 
     public GetMediaResponse() {

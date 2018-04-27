@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,21 +20,27 @@ import java.util.Locale;
 public class Model implements Parcelable {
 
     @JsonProperty("modelId")
+    @SerializedName("modelId")
     private String id;
 
     @JsonProperty("creationTime")
+    @SerializedName("creationTime")
     private String creationTime;
 
     @JsonProperty("description")
+    @SerializedName("description")
     private String description;
 
     @JsonProperty("modelName")
+    @SerializedName("modelName")
     private String name;
 
     @JsonProperty("public")
+    @SerializedName("public")
     private boolean publicModel;
 
     @JsonProperty("status")
+    @SerializedName("status")
     private String status;
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss.SSSZ", Locale.getDefault());

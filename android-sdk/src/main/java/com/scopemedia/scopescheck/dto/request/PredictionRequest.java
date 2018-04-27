@@ -6,6 +6,7 @@ import android.os.Parcelable;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 import com.scopemedia.scopescheck.Utils;
 import com.scopemedia.scopescheck.dto.model.Area;
 
@@ -17,15 +18,19 @@ import com.scopemedia.scopescheck.dto.model.Area;
 public class PredictionRequest extends ScopeRequest implements Parcelable {
 
     @JsonProperty("base64")
+    @SerializedName("base64")
     private String base64;
 
     @JsonProperty("mediaUrl")
+    @SerializedName("mediaUrl")
     private String mediaUrl;
 
     @JsonProperty("modelId")
+    @SerializedName("modelId")
     private String modelId;
 
     @JsonProperty("area")
+    @SerializedName("area")
     private Area area;
 
     public PredictionRequest() {

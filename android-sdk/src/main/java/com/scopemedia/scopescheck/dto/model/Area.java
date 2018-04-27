@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * @author Maikel Rehl on 6/12/2017.
@@ -14,15 +15,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Area implements Parcelable {
 
     @JsonProperty("x")
+    @SerializedName("x")
     protected int startX;
 
     @JsonProperty("y")
+    @SerializedName("y")
     protected int startY;
 
     @JsonProperty("w")
+    @SerializedName("w")
     protected int width;
 
     @JsonProperty("h")
+    @SerializedName("h")
     protected int height;
 
     public Area() {

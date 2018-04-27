@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by maikel on 2017-03-27.
@@ -14,9 +15,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Tag implements Parcelable {
 
     @JsonProperty("label")
+    @SerializedName("label")
     private String label;
 
     @JsonProperty("score")
+    @SerializedName("score")
     private String score;
 
     public Tag() {

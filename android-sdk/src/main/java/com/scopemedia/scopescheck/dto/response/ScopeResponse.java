@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * @author Maikel Rehl on 6/12/2017.
@@ -14,9 +15,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public abstract class ScopeResponse implements Parcelable {
 
     @JsonProperty("status")
+    @SerializedName("status")
     private String status;
 
     @JsonProperty("error")
+    @SerializedName("error")
     private String error;
 
     public ScopeResponse() {

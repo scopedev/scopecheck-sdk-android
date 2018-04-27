@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 import com.scopemedia.scopescheck.dto.model.Model;
 
 /**
@@ -15,6 +16,7 @@ import com.scopemedia.scopescheck.dto.model.Model;
 public class ModelResponse extends ScopeResponse implements Parcelable {
 
     @JsonProperty("models")
+    @SerializedName("models")
     private Model[] models;
 
     public ModelResponse() {
