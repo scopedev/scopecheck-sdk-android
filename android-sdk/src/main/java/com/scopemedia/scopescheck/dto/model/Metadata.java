@@ -12,7 +12,7 @@ public class Metadata implements Parcelable {
 
     @JsonProperty("itemId")
     @SerializedName("itemId")
-    private long itemId;
+    private String itemId;
 
     @JsonProperty("gender")
     @SerializedName("gender")
@@ -61,11 +61,11 @@ public class Metadata implements Parcelable {
     public Metadata() {
     }
 
-    public long getItemId() {
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(long itemId) {
+    public void setItemId(String itemId) {
         this.itemId = itemId;
     }
 
@@ -164,7 +164,7 @@ public class Metadata implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(this.itemId);
+        dest.writeString(this.itemId);
         dest.writeString(this.gender);
         dest.writeString(this.price);
         dest.writeString(this.appId);
@@ -179,7 +179,7 @@ public class Metadata implements Parcelable {
     }
 
     protected Metadata(Parcel in) {
-        this.itemId = in.readLong();
+        this.itemId = in.readString();
         this.gender = in.readString();
         this.price = in.readString();
         this.appId = in.readString();
