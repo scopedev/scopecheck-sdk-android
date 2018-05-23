@@ -58,6 +58,10 @@ public class Metadata implements Parcelable {
     @SerializedName("shotTime")
     private long shotTime;
 
+    @JsonProperty("fashionScore")
+    @SerializedName("fashionScore")
+    private String fashionScore;
+
     public Metadata() {
     }
 
@@ -157,6 +161,14 @@ public class Metadata implements Parcelable {
         this.shotTime = shotTime;
     }
 
+    public String getFashionScore() {
+        return fashionScore;
+    }
+
+    public void setFashionScore(String fashionScore) {
+        this.fashionScore = fashionScore;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -176,6 +188,7 @@ public class Metadata implements Parcelable {
         dest.writeString(this.store);
         dest.writeByte(this.primary ? (byte) 1 : (byte) 0);
         dest.writeLong(this.shotTime);
+        dest.writeString(this.fashionScore);
     }
 
     protected Metadata(Parcel in) {
@@ -191,6 +204,7 @@ public class Metadata implements Parcelable {
         this.store = in.readString();
         this.primary = in.readByte() != 0;
         this.shotTime = in.readLong();
+        this.fashionScore = in.readString();
     }
 
     public static final Creator<Metadata> CREATOR = new Creator<Metadata>() {
