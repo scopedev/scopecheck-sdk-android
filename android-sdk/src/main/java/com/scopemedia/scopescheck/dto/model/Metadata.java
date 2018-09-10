@@ -62,6 +62,14 @@ public class Metadata implements Parcelable {
     @SerializedName("fashionScore")
     private String fashionScore;
 
+    @JsonProperty("category")
+    @SerializedName("category")
+    private String category;
+
+    @JsonProperty("subcategory")
+    @SerializedName("subcategory")
+    private String subcategory;
+
     public Metadata() {
     }
 
@@ -169,6 +177,22 @@ public class Metadata implements Parcelable {
         this.fashionScore = fashionScore;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getSubcategory() {
+        return subcategory;
+    }
+
+    public void setSubcategory(String subcategory) {
+        this.subcategory = subcategory;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -189,6 +213,8 @@ public class Metadata implements Parcelable {
         dest.writeByte(this.primary ? (byte) 1 : (byte) 0);
         dest.writeLong(this.shotTime);
         dest.writeString(this.fashionScore);
+        dest.writeString(this.category);
+        dest.writeString(this.subcategory);
     }
 
     protected Metadata(Parcel in) {
@@ -205,6 +231,8 @@ public class Metadata implements Parcelable {
         this.primary = in.readByte() != 0;
         this.shotTime = in.readLong();
         this.fashionScore = in.readString();
+        this.category = in.readString();
+        this.subcategory = in.readString();
     }
 
     public static final Creator<Metadata> CREATOR = new Creator<Metadata>() {
