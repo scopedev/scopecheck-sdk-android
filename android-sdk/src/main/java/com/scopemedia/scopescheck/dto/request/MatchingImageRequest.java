@@ -37,6 +37,10 @@ public class MatchingImageRequest extends ScopeRequest implements Parcelable {
     @SerializedName("gender")
     private String gender;
 
+    @JsonProperty("size")
+    @SerializedName("size")
+    private int size;
+
     public MatchingImageRequest() {
     }
 
@@ -109,6 +113,14 @@ public class MatchingImageRequest extends ScopeRequest implements Parcelable {
         return this;
     }
 
+    /**
+     * Set number of matching image groups returned
+     * @param size Default to 3 groups if not set
+     */
+    public void setSize(int size) {
+        this.size = size;
+    }
+
     @Override
     public boolean checkAllRequired() {
         return mediaId != 0.0 || mediaUrl != null || base64 != null;
@@ -122,33 +134,35 @@ public class MatchingImageRequest extends ScopeRequest implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
-        dest.writeString(appId);
-        dest.writeLong(mediaId);
-        dest.writeString(mediaUrl);
-        dest.writeString(base64);
-        dest.writeParcelable(area, PARCELABLE_WRITE_RETURN_VALUE);
-        dest.writeString(gender);
+        dest.writeString(this.base64);
+        dest.writeLong(this.mediaId);
+        dest.writeString(this.mediaUrl);
+        dest.writeString(this.appId);
+        dest.writeParcelable(this.area, flags);
+        dest.writeString(this.gender);
+        dest.writeInt(this.size);
     }
 
-    private MatchingImageRequest(Parcel in) {
+    protected MatchingImageRequest(Parcel in) {
         super(in);
-        this.appId = in.readString();
+        this.base64 = in.readString();
         this.mediaId = in.readLong();
         this.mediaUrl = in.readString();
-        this.base64 = in.readString();
+        this.appId = in.readString();
         this.area = in.readParcelable(Area.class.getClassLoader());
         this.gender = in.readString();
+        this.size = in.readInt();
     }
 
     public static final Creator<MatchingImageRequest> CREATOR = new Creator<MatchingImageRequest>() {
         @Override
-        public MatchingImageRequest[] newArray(int size) {
-            return new MatchingImageRequest[size];
+        public MatchingImageRequest createFromParcel(Parcel source) {
+            return new MatchingImageRequest(source);
         }
 
         @Override
-        public MatchingImageRequest createFromParcel(Parcel source) {
-            return new MatchingImageRequest(source);
+        public MatchingImageRequest[] newArray(int size) {
+            return new MatchingImageRequest[size];
         }
     };
 }
